@@ -1,0 +1,77 @@
+.main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/img/forest.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.game-board {
+    width: 90vh;    
+    height: 90vh;
+    position: relative; 
+    background-image: url("../../assets/img/grass.jpg");
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 18% 18% 18% 18% 18%;
+    grid-template-rows: 18% 18% 18% 18% 18%;
+    justify-content: center;
+    align-content: center;
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+.game-field {
+    border: 2px ridge #ABFAA9;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.bubble {
+    position: relative;
+    color: white;
+    text-align: center;
+    height: 50px;
+    padding: 0px;
+    background: #1e3c72;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2a5298, #1e3c72); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    grid-column-start: 2;
+    grid-column-end: 5;
+    margin: 10px;
+}
+
+.move {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.move h2 {
+    font-size: 3em;
+    color:white;
+    
+}
+
+.bubble-image {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.dice {
+    grid-column-start: 5;
+    grid-column-end: 6;
+    background: none;
+    border: none;
+}
