@@ -1,0 +1,6 @@
+.dice {
+    grid-column-start: 5;
+    grid-column-end: 6;
+    background: none;
+    border: none;
+}

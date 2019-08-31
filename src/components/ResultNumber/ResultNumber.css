@@ -1,0 +1,13 @@
+.move {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.move h2 {
+    font-size: 3em;
+    color:white;
+    
+}

@@ -1,0 +1,14 @@
+.hedgehog-container {
+    height: 18%;
+    width: 18%;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.hedgehog {
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top: 25%;
+    left: 25%;
+}
