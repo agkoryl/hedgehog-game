@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Board.css';
 
-
+import Instructions from '../Instructions/Instructions';
 import DefaultGameField from '../GameFields/DefaultGameField';
 import LoseGameField from '../GameFields/LoseGameField';
 import GoBackGameField from '../GameFields/GoBackGameField';
@@ -23,6 +23,7 @@ class Board extends Component {
     state = {
         hedgehogPosition: 1,
         currentMove: 0,
+        startModal: true,
     }
 
     setMoveNumber = () => {
@@ -34,25 +35,28 @@ class Board extends Component {
     setHedgehogPosition = (moveNumber) => {
         let newPosition = this.state.hedgehogPosition + moveNumber;
 
-        if(newPosition === losingPosition) {
+        if (newPosition === losingPosition) {
             console.log("you lost");
             this.setState({ hedgehogPosition: losingPosition });
-        } else if(newPosition === winningPosition) {
+        } else if (newPosition === winningPosition) {
             console.log("you won");
             this.setState({ hedgehogPosition: winningPosition });
-        } else if((newPosition) > 20) {
+        } else if ((newPosition) > 20) {
             let goBackPosition = 20 - [(this.state.hedgehogPosition + moveNumber) - 20];
-            if(goBackPosition === 19) {
+            if (goBackPosition === 19) {
                 this.setState({ hedgehogPosition: returnPosition });
             } else {
                 this.setState({ hedgehogPosition: goBackPosition });
             }
-        }
-        else if(newPosition === goingBackPosition) {
+        } else if (newPosition === goingBackPosition) {
             this.setState({ hedgehogPosition: returnPosition })
         } else {
             this.setState({ hedgehogPosition: newPosition });
         }
+    }
+
+    closeModal =()=> {
+        this.setState({startModal: false});
     }
 
     render() {
@@ -60,20 +64,22 @@ class Board extends Component {
         const fields = Array.from(Array(20).keys());
         return (
             <div className="main-container">
+                 <Instructions visibility={this.state.startModal} closeModal={this.closeModal}/>
                 <div className="game-board">
                     <Hedgehog position={this.state.hedgehogPosition} />
                     {fields.map((field) => {
-                        if (field === 11) {
-                            return <LoseGameField key={field} />
+                        const fieldNumber = field + 1;
+                        if (fieldNumber === losingPosition) {
+                            return <LoseGameField key={fieldNumber} />
                         }
-                        else if (field === 18) {
-                            return <GoBackGameField key={field} />
+                        else if (fieldNumber === goingBackPosition) {
+                            return <GoBackGameField key={fieldNumber} />
                         }
-                        else if (field === 19) {
-                            return <WinGameField key={field} />
+                        else if (fieldNumber === winningPosition) {
+                            return <WinGameField key={fieldNumber} />
                         }
                         else {
-                            return <DefaultGameField number={field + 1} key={field} />
+                            return <DefaultGameField number={fieldNumber} key={fieldNumber} />
                         }
                     })}
                     <ResultNumber currentMove={this.state.currentMove} />
