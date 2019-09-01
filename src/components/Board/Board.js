@@ -11,6 +11,7 @@ import Hedgehog from '../Hedgehog/Hedgehog';
 import Dice from '../Dice/Dice';
 import ResultNumber from '../ResultNumber/ResultNumber';
 import MessageBubble from '../MessageBubble/MessageBubble';
+import DefaultModal from '../DefaultModal/DefaultModal';
 
 
 const losingPosition = 12;
@@ -24,6 +25,8 @@ class Board extends Component {
         hedgehogPosition: 1,
         currentMove: 0,
         startModal: true,
+        winModal: false,
+        loseModal: false,
     }
 
     setMoveNumber = () => {
@@ -36,10 +39,10 @@ class Board extends Component {
         let newPosition = this.state.hedgehogPosition + moveNumber;
 
         if (newPosition === losingPosition) {
-            console.log("you lost");
+            this.openModal("loseModal");
             this.setState({ hedgehogPosition: losingPosition });
         } else if (newPosition === winningPosition) {
-            console.log("you won");
+            this.openModal("winModal");
             this.setState({ hedgehogPosition: winningPosition });
         } else if ((newPosition) > 20) {
             let goBackPosition = 20 - [(this.state.hedgehogPosition + moveNumber) - 20];
@@ -55,8 +58,13 @@ class Board extends Component {
         }
     }
 
-    closeModal =()=> {
-        this.setState({startModal: false});
+    closeModal = (modal) => {
+        this.setState({ [modal]: false });
+        this.setState({hedgehogPosition: 1});
+    }
+
+    openModal = (modal) => {
+        this.setState({[modal] : true})
     }
 
     render() {
@@ -64,7 +72,21 @@ class Board extends Component {
         const fields = Array.from(Array(20).keys());
         return (
             <div className="main-container">
-                 <Instructions visibility={this.state.startModal} closeModal={this.closeModal}/>
+                <Instructions visibility={this.state.startModal} closeModal={() => this.closeModal("startModal")} />
+                <DefaultModal
+                    visibility={this.state.winModal}
+                    closeModal={() => this.closeModal("winModal")}
+                    messageTitle={"You win!!!"}
+                    messageText={"The fox was fast but you managed to catch him. The Hedgehog can sleep peacefully. Great job!"}
+                    image={"hedgehog"}
+                />
+                <DefaultModal
+                    visibility={this.state.loseModal}
+                    closeModal={() => this.closeModal("loseModal")}
+                    messageTitle={"You lose!!!"}
+                    messageText={"The fox was smarter than you and escaped. Try again and help the Hedgehog sleep peacefully."}
+                    image={"fox"}
+                />
                 <div className="game-board">
                     <Hedgehog position={this.state.hedgehogPosition} />
                     {fields.map((field) => {
