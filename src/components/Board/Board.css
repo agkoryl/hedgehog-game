@@ -24,6 +24,16 @@
     row-gap: 1%;
 }
 
+.credits-container {
+    position: absolute; 
+    bottom: 0; 
+    left: 0;
+    color: white; 
+    font-size: 70%;
+    margin: 4px;
+    cursor: pointer;
+}
+
 
 
 

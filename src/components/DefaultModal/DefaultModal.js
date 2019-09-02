@@ -5,44 +5,36 @@ import './DefaultModal.css';
 import hedgehog from '../../assets/img/hedgehog.svg';
 import fox from '../../assets/img/fox.svg';
 
-
 class DefaultModal extends Component {
 
-
-    toggleVisibility(visibility) {
-        if (visibility) {
-            return { visibility: "hidden" }
-        } else {
-            return { visibility: "visible" }
-        }
+    toggleVisibility(isVisible) {
+        return isVisible ? { visibility: "visible" } : { visibility: "hidden" }
     }
 
     render() {
+        const { visibility, image, messageText, messageTitle, closeModal, buttonMessage } = this.props;
         return (
             <React.Fragment>
-                <div className="modal-background" style={this.props.visibility ? { visibility: "visible" } : { visibility: "hidden" }} />
-                <div className="modal-container" style={this.props.visibility ? { visibility: "visible" } : { visibility: "hidden" }}>
+                <div className="modal-background" style={this.toggleVisibility(visibility)} />
+                <div className="modal-container" style={this.toggleVisibility(visibility)}>
                     <div className="modal-content">
                         <div className="modal-message">
                             <div className="modal-text">
-                                <h1>{this.props.messageTitle}</h1>
-                                <p>{this.props.messageText}</p>
+                                <h1>{messageTitle}</h1>
+                                <p>{messageText}</p>
                             </div>
                             <div className="modal-image">
-                                <img src={this.props.image === "hedgehog" ? hedgehog : fox} alt="end"></img>
+                                <img src={image === "hedgehog" ? hedgehog : fox} alt="end"></img>
                             </div>
                         </div>
                         <div className="restart-btn-container">
-                            <button className="restart-btn" onClick={this.props.closeModal}>
-                                TRY AGAIN
+                            <button className="restart-btn" onClick={closeModal}>
+                                {buttonMessage}
                             </button>
                         </div>
                     </div>
                 </div>
-
             </React.Fragment>
-
-
         )
     }
 }

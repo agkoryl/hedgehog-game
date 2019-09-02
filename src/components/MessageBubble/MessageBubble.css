@@ -2,7 +2,7 @@
     position: relative;
     color: white;
     text-align: center;
-    height: 50px;
+    height: 70px;
     padding: 0px;
     background: #1e3c72;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
@@ -13,8 +13,10 @@
     grid-column-start: 2;
     grid-column-end: 5;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 
 .bubble-image {
     height: 30px;
@@ -22,4 +24,18 @@
     position: absolute;
     bottom: 5px;
     right: 5px;
+}
+
+@media (max-width: 450px) {
+    .bubble {
+        font-size: 70%;
+    }
+}
+
+@media (max-width: 350px) {
+    .bubble {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        visibility: hidden;
+    }
 }

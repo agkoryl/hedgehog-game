@@ -12,7 +12,6 @@ class GoBackGameField extends Component {
             </div>
         )
     }
-
 }
 
 export default GoBackGameField;
