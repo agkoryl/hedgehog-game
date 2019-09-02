@@ -12,7 +12,16 @@ class DefaultModal extends Component {
     }
 
     render() {
-        const { visibility, image, messageText, messageTitle, closeModal, buttonMessage } = this.props;
+        const {
+            visibility,
+            image,
+            messageText,
+            messageTitle,
+            closeModal,
+            buttonMessage,
+            throwNumber,
+            meanNumber,
+        } = this.props;
         return (
             <React.Fragment>
                 <div className="modal-background" style={this.toggleVisibility(visibility)} />
@@ -22,6 +31,12 @@ class DefaultModal extends Component {
                             <div className="modal-text">
                                 <h1>{messageTitle}</h1>
                                 <p>{messageText}</p>
+                                {throwNumber &&
+                                    <p>Throw number: {throwNumber}</p>
+                                }
+                                {meanNumber &&
+                                    <p>Mean number on the dice: {meanNumber}</p>
+                                }
                             </div>
                             <div className="modal-image">
                                 <img src={image === "hedgehog" ? hedgehog : fox} alt="end"></img>

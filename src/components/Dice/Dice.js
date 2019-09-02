@@ -10,6 +10,7 @@ class Dice extends Component {
 
     makeAMove = () => {
         this.props.setMoveNumber();
+        this.props.increaseThrowNumber();
     }
 
     excludePositions() {
