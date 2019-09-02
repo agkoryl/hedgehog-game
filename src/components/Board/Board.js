@@ -24,12 +24,25 @@ class Board extends Component {
         winModal: false,
         loseModal: false,
         creditsModal: false,
+        throwNumber: 0,
+        sumOfNumbers: 0,
     }
 
     setMoveNumber = () => {
         let moveNumber = Math.floor(Math.random() * 6) + 1;
         this.setState({ currentMove: moveNumber });
         this.setHedgehogPosition(moveNumber);
+        this.addNumbersOnDice(moveNumber);
+    }
+
+    addNumbersOnDice(moveNumber) {
+        let newSum = this.state.sumOfNumbers + moveNumber;
+        this.setState({ sumOfNumbers: newSum });
+    }
+
+    countMeanNumber() {
+        let meanNumber = this.state.sumOfNumbers / this.state.throwNumber;
+        return meanNumber.toFixed(2);
     }
 
     setHedgehogPosition = (moveNumber) => {
@@ -75,14 +88,34 @@ class Board extends Component {
     closeModal = (modal) => {
         this.setState({ [modal]: false });
         this.setState({ hedgehogPosition: 1 });
+        if (modal === "winModal" || modal === "loseModal") {
+            this.resetThrowNumber();
+        }
     }
 
     openModal = (modal) => {
         this.setState({ [modal]: true })
     }
 
+    increaseThrowNumber = () => {
+        let increasedNumber = this.state.throwNumber + 1;
+        this.setState({ throwNumber: increasedNumber })
+    }
+
+    resetThrowNumber() {
+        this.setState({ throwNumber: 0 })
+    }
+
     render() {
-        const { startModal, winModal, loseModal, creditsModal, hedgehogPosition, currentMove } = this.state;
+        const {
+            startModal,
+            winModal,
+            loseModal,
+            creditsModal,
+            hedgehogPosition,
+            currentMove,
+            throwNumber,
+        } = this.state;
         const fields = Array.from(Array(20).keys());
         return (
             <div className="main-container">
@@ -97,6 +130,8 @@ class Board extends Component {
                     messageText={winModalMessage}
                     image={"hedgehog"}
                     buttonMessage={"Play again"}
+                    throwNumber={throwNumber}
+                    meanNumber={this.countMeanNumber()}
                 />
                 <DefaultModal
                     visibility={loseModal}
@@ -105,8 +140,10 @@ class Board extends Component {
                     messageText={loseModalMessage}
                     image={"fox"}
                     buttonMessage={"Try again"}
+                    throwNumber={throwNumber}
+                    meanNumber={this.countMeanNumber()}
                 />
-                 <DefaultModal
+                <DefaultModal
                     visibility={creditsModal}
                     closeModal={() => this.closeModal("creditsModal")}
                     messageTitle={creditsModalTitle}
@@ -138,9 +175,10 @@ class Board extends Component {
                         setMoveNumber={this.setMoveNumber}
                         hedgehogPosition={this.state.hedgehogPosition}
                         setHedgehogPosition={this.setHedgehogPosition}
+                        increaseThrowNumber={this.increaseThrowNumber}
                     />
                 </div>
-                <div className="credits-container" onClick={()=>this.openModal("creditsModal")}>credits</div>
+                <div className="credits-container" onClick={() => this.openModal("creditsModal")}>credits</div>
             </div>
         )
     }
