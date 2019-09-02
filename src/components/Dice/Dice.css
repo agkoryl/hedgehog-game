@@ -3,4 +3,21 @@
     grid-column-end: 6;
     background: none;
     border: none;
+    outline: none;
+}
+
+.dice:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+.dice:active .dice:focus {
+    outline: none;
+}
+
+@media (max-width: 340px) {
+    .dice {
+        grid-column-start: 4;
+        grid-column-end: 6
+    }
 }
