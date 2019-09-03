@@ -90,6 +90,7 @@ class Board extends Component {
         this.setState({ hedgehogPosition: 1 });
         if (modal === "winModal" || modal === "loseModal") {
             this.resetThrowNumber();
+            this.resetSumOfNumbers();
         }
     }
 
@@ -104,6 +105,10 @@ class Board extends Component {
 
     resetThrowNumber() {
         this.setState({ throwNumber: 0 })
+    }
+
+    resetSumOfNumbers() {
+        this.setState({ sumOfNumbers: 0})
     }
 
     render() {
